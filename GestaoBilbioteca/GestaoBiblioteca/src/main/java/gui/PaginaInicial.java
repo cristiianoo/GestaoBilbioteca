@@ -1,4 +1,4 @@
-package estga.lp.gestaobiblioteca;
+package gui;
 
 public class PaginaInicial extends javax.swing.JFrame {
     
@@ -27,6 +27,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -50,6 +51,15 @@ public class PaginaInicial extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         jMenu1.setText("Membros");
+
+        jMenuItem1.setText("Gestão");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Livros");
@@ -105,6 +115,12 @@ public class PaginaInicial extends javax.swing.JFrame {
         gestaoLivros.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        GestaoMembros gestaoMembros = new GestaoMembros();
+        gestaoMembros.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -147,6 +163,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

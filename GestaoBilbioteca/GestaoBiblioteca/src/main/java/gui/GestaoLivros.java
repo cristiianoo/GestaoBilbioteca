@@ -1,4 +1,4 @@
-package estga.lp.gestaobiblioteca;
+package gui;
 
 public class GestaoLivros extends javax.swing.JFrame {
     /**
@@ -37,8 +37,10 @@ public class GestaoLivros extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
 
+        jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialog1.setPreferredSize(new java.awt.Dimension(400, 300));
         jDialog1.setResizable(false);
-        jDialog1.setSize(new java.awt.Dimension(400, 270));
+        jDialog1.setSize(new java.awt.Dimension(400, 310));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Detalhes do Livro");

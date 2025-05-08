@@ -1,4 +1,6 @@
-C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBiblioteca\src\main\java\estga\lp\gestaobiblioteca\GestaoBiblioteca.java
-C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBiblioteca\src\main\java\estga\lp\gestaobiblioteca\GestaoLivros.java
-C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBiblioteca\src\main\java\estga\lp\gestaobiblioteca\NewJFrame.java
-C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBiblioteca\src\main\java\estga\lp\gestaobiblioteca\PaginaInicial.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\gui\GestaoLivros.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\gui\GestaoMembros.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\gui\PaginaInicial.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\modelo\Emprestimo.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\modelo\Livro.java
+C:\Users\crist\Documents\NetBeansProjects\GestaoBilbioteca\GestaoBilbioteca\GestaoBiblioteca\src\main\java\modelo\Membro.java

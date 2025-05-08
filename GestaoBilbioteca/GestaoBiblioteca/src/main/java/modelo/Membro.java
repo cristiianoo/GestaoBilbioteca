@@ -1,4 +1,4 @@
-package estga.lp.gestaobiblioteca;
+package modelo;
 
 /**
  * Classe que representa um membro da biblioteca.
