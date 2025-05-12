@@ -1,11 +1,10 @@
 package modelo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Classe que representa um empréstimo de livro a um membro.
- */
 public class Emprestimo {
     private int id;
     private int idLivro;
@@ -14,35 +13,17 @@ public class Emprestimo {
     private Date dataDevolucaoPrevista;
     private Date dataDevolucaoEfetiva;
     
-    // Para facilitar a formatação de datas
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    /**
-     * Construtor completo para a classe Emprestimo.
-     * 
-     * @param id Identificador único do empréstimo
-     * @param idLivro ID do livro emprestado
-     * @param idMembro ID do membro que pegou emprestado
-     * @param dataEmprestimo Data em que o empréstimo foi realizado
-     * @param dataDevolucaoPrevista Data prevista para devolução
-     */
     public Emprestimo(int id, int idLivro, int idMembro, Date dataEmprestimo, Date dataDevolucaoPrevista) {
         this.id = id;
         this.idLivro = idLivro;
         this.idMembro = idMembro;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucaoPrevista = dataDevolucaoPrevista;
-        this.dataDevolucaoEfetiva = null; // Inicialmente, o livro não foi devolvido
+        this.dataDevolucaoEfetiva = null;
     }
-
-    /**
-     * Construtor sem ID, útil quando o ID é gerado automaticamente.
-     * 
-     * @param idLivro ID do livro emprestado
-     * @param idMembro ID do membro que pegou emprestado
-     * @param dataEmprestimo Data em que o empréstimo foi realizado
-     * @param dataDevolucaoPrevista Data prevista para devolução
-     */
+    
     public Emprestimo(int idLivro, int idMembro, Date dataEmprestimo, Date dataDevolucaoPrevista) {
         this.idLivro = idLivro;
         this.idMembro = idMembro;
@@ -51,7 +32,6 @@ public class Emprestimo {
         this.dataDevolucaoEfetiva = null;
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -100,36 +80,63 @@ public class Emprestimo {
         this.dataDevolucaoEfetiva = dataDevolucaoEfetiva;
     }
     
-    /**
-     * Verifica se o empréstimo está ativo (ainda não devolvido).
-     * 
-     * @return true se o empréstimo estiver ativo, false caso contrário
-     */
     public boolean isAtivo() {
         return dataDevolucaoEfetiva == null;
     }
     
-    /**
-     * Verifica se o empréstimo está atrasado.
-     * 
-     * @return true se o empréstimo estiver atrasado, false caso contrário
-     */
     public boolean isAtrasado() {
-        if (dataDevolucaoEfetiva != null) {
-            return dataDevolucaoEfetiva.after(dataDevolucaoPrevista);
-        } else {
-            Date hoje = new Date();
-            return hoje.after(dataDevolucaoPrevista);
+        if (!isAtivo()) { 
+            return false;
+        }
+        Date hoje = new Date();
+        try {
+            Date hojeNormalizada = dateFormat.parse(dateFormat.format(hoje));
+            Date devolucaoPrevistaNormalizada = dateFormat.parse(dateFormat.format(this.dataDevolucaoPrevista));
+            
+            return hojeNormalizada.after(devolucaoPrevistaNormalizada);
+        } catch (ParseException e) {
+            System.err.println("Erro ao normalizar datas para verificar atraso: " + e.getMessage());
+            return hoje.after(this.dataDevolucaoPrevista);
+        }
+    }
+
+    public long getDiasAtraso() {
+        if (dataDevolucaoEfetiva == null || !dataDevolucaoEfetiva.after(dataDevolucaoPrevista)) {
+            if (dataDevolucaoEfetiva != null) {
+                 try {
+                    Date efetivaNormalizada = dateFormat.parse(dateFormat.format(this.dataDevolucaoEfetiva));
+                    Date previstaNormalizada = dateFormat.parse(dateFormat.format(this.dataDevolucaoPrevista));
+                    if (!efetivaNormalizada.after(previstaNormalizada)) {
+                        return 0; 
+                    }
+                } catch (ParseException e) {
+                    if(!dataDevolucaoEfetiva.after(dataDevolucaoPrevista)) return 0;
+                }
+            } else {
+                 return 0;
+            }
+        }
+
+        try {
+            Date efetivaNormalizada = dateFormat.parse(dateFormat.format(this.dataDevolucaoEfetiva));
+            Date previstaNormalizada = dateFormat.parse(dateFormat.format(this.dataDevolucaoPrevista));
+
+            if (!efetivaNormalizada.after(previstaNormalizada)) {
+                return 0;
+            }
+
+            long diffInMillies = efetivaNormalizada.getTime() - previstaNormalizada.getTime();
+            return TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        } catch (ParseException e) {
+            System.err.println("Erro ao normalizar datas para getDiasAtraso: " + e.getMessage());
+            long diffInMillies = this.dataDevolucaoEfetiva.getTime() - this.dataDevolucaoPrevista.getTime();
+            return Math.max(0, TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS));
         }
     }
     
-    /**
-     * Obtém o estado do empréstimo como texto.
-     * 
-     * @return "Ativo", "Atrasado" ou "Devolvido"
-     */
     public String getEstadoTexto() {
-        if (dataDevolucaoEfetiva != null) {
+        if (!isAtivo()) {
             return "Devolvido";
         } else if (isAtrasado()) {
             return "Atrasado";
@@ -137,13 +144,7 @@ public class Emprestimo {
             return "Ativo";
         }
     }
-    
-    /**
-     * Formata uma data para exibição.
-     * 
-     * @param date Data a ser formatada
-     * @return String formatada da data ou "-" se a data for nula
-     */
+
     public static String formatarData(Date date) {
         return date != null ? dateFormat.format(date) : "-";
     }
@@ -153,6 +154,7 @@ public class Emprestimo {
         return "Empréstimo #" + id + " | Livro ID: " + idLivro + " | Membro ID: " + idMembro + 
                " | Emprestado em: " + formatarData(dataEmprestimo) + 
                " | Devolução Prevista: " + formatarData(dataDevolucaoPrevista) + 
+               (dataDevolucaoEfetiva != null ? " | Devolvido em: " + formatarData(dataDevolucaoEfetiva) : "") +
                " | Estado: " + getEstadoTexto();
     }
 }

@@ -1,8 +1,5 @@
 package modelo;
 
-/**
- * Classe que representa um membro da biblioteca.
- */
 public class Membro {
     private int id;
     private String numeroSocio;
@@ -10,15 +7,6 @@ public class Membro {
     private String apelido;
     private String email;
 
-    /**
-     * Construtor completo para a classe Membro.
-     * 
-     * @param id Identificador único do membro
-     * @param numeroSocio Número de sócio único
-     * @param primeiroNome Primeiro nome do membro
-     * @param apelido Apelido do membro
-     * @param email Email de contato do membro
-     */
     public Membro(int id, String numeroSocio, String primeiroNome, String apelido, String email) {
         this.id = id;
         this.numeroSocio = numeroSocio;
@@ -27,14 +15,6 @@ public class Membro {
         this.email = email;
     }
 
-    /**
-     * Construtor sem ID, útil quando o ID é gerado automaticamente.
-     * 
-     * @param numeroSocio Número de sócio único
-     * @param primeiroNome Primeiro nome do membro
-     * @param apelido Apelido do membro
-     * @param email Email de contato do membro
-     */
     public Membro(String numeroSocio, String primeiroNome, String apelido, String email) {
         this.numeroSocio = numeroSocio;
         this.primeiroNome = primeiroNome;
@@ -42,7 +22,6 @@ public class Membro {
         this.email = email;
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -83,11 +62,6 @@ public class Membro {
         this.email = email;
     }
 
-    /**
-     * Retorna o nome completo do membro.
-     * 
-     * @return Nome completo (primeiro nome + apelido)
-     */
     public String getNomeCompleto() {
         return primeiroNome + " " + apelido;
     }
